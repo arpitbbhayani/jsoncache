@@ -18,16 +18,11 @@ class CacheIOError(CacheError):
         CacheError.__init__(self, description, error_code='CACHE_IO_ERROR')
 
 
-class CacheInitError(CacheError):
+class CacheUpdateError(CacheError):
     def __init__(self, description):
-        CacheError.__init__(self, description, error_code='CACHE_INIT_ERROR')
+        CacheError.__init__(self, description, error_code='CACHE_UPDATE_ERROR')
 
 
 class ArgumentError(CacheError):
     def __init__(self, description):
         CacheError.__init__(self, description, error_code='ARGUMENT_ERROR')
-
-
-class CacheUpdateError(CacheError):
-    def __init__(self, description):
-        CacheError.__init__(self, description, error_code='CACHE_UPDATE_ERROR')

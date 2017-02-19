@@ -29,8 +29,8 @@ class GetTests(TestBase):
         self.assertEqual(self.json_cache.get('key1', 'key2'), 1.0)
 
     def test_get_successfull_level2_list(self):
-        self.json_cache.put('key1', 'key2', [1,2])
-        self.assertEqual(self.json_cache.get('key1', 'key2'), [1,2])
+        self.json_cache.put('key1', 'key2', [1, 2])
+        self.assertEqual(self.json_cache.get('key1', 'key2'), [1, 2])
 
     def test_get_successfull_level2_dict(self):
         self.json_cache.put('key1', 'key2', {'a': 1})

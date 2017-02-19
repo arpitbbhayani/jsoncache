@@ -27,7 +27,7 @@ class GetTests(TestBase):
         self.assertEqual(self.json_cache.get('key1', 'key3'), 'value2')
 
     def test_delete_successfull_tuple(self):
-        self.json_cache.put('key1', 'key2', (1,2,3))
+        self.json_cache.put('key1', 'key2', (1, 2, 3))
         self.json_cache.put('key1', 'key3', [1, 2, 3, 4])
         self.json_cache.delete('key1', 'key2')
         with self.assertRaises(NotInCacheError):

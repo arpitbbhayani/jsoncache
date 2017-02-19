@@ -35,7 +35,7 @@ class UpdateDictTests(unittest.TestCase):
 
     def test_unsuccessful_blacklisted_value_type(self):
         with self.assertRaises(CacheUpdateError):
-            update_dict(self.d, ['a', '1', set([1,2,3])])
+            update_dict(self.d, ['a', '1', set([1, 2, 3])])
 
     def test_unsuccessful_value_exists(self):
         with self.assertRaises(CacheUpdateError):
@@ -45,21 +45,21 @@ class UpdateDictTests(unittest.TestCase):
         update_dict(self.d, ['a', '1', 'value'])
         self.assertEqual(self.d, {
             'a': {
-                '1' : 'value'
+                '1': 'value'
             }
         })
 
-        update_dict(self.d, ['a', '1', [1,2,3]])
+        update_dict(self.d, ['a', '1', [1, 2, 3]])
         self.assertEqual(self.d, {
             'a': {
-                '1' : [1,2,3]
+                '1': [1, 2, 3]
             }
         })
 
-        update_dict(self.d, ['a', '1', (1,2,3,)])
+        update_dict(self.d, ['a', '1', (1, 2, 3,)])
         self.assertEqual(self.d, {
             'a': {
-                '1' : (1,2,3,)
+                '1': (1, 2, 3,)
             }
         })
 
@@ -67,7 +67,7 @@ class UpdateDictTests(unittest.TestCase):
         update_dict(self.d, ['b', 'c', 'd', 10])
         self.assertEqual(self.d, {
             'a': {
-                '1' : 1
+                '1': 1
             },
             'b': {
                 'c': {
@@ -80,7 +80,7 @@ class UpdateDictTests(unittest.TestCase):
         update_dict(self.d, ['b', 4])
         self.assertEqual(self.d, {
             'a': {
-                '1' : 1
+                '1': 1
             },
             'b': 4
         })
@@ -89,7 +89,7 @@ class UpdateDictTests(unittest.TestCase):
         update_dict(self.d, ['b', {'c': 4}])
         self.assertEqual(self.d, {
             'a': {
-                '1' : 1
+                '1': 1
             },
             'b': {
                 'c': 4
@@ -99,7 +99,7 @@ class UpdateDictTests(unittest.TestCase):
         update_dict(self.d, ['b', 'c', 5])
         self.assertEqual(self.d, {
             'a': {
-                '1' : 1
+                '1': 1
             },
             'b': {
                 'c': 5

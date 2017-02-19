@@ -2,8 +2,8 @@ import os
 
 from . import fileio
 from . import utils
-from .errors import (CacheError, CacheInitError, ArgumentError, CacheIOError,
-                    NotInCacheError)
+from .errors import (CacheError, ArgumentError, CacheIOError,
+                     NotInCacheError)
 
 
 class JSONCache:
@@ -11,16 +11,12 @@ class JSONCache:
         self.fp = cache_filepath
 
         if os.path.isdir(self.fp):
-            raise CacheInitError("Error while initializing cache: {}"
-                                 .format("Folder exists instead of file"))
+            raise CacheIOError("Error while initializing cache: {}"
+                               .format("Folder exists instead of file"))
 
-        try:
-            if not os.path.exists(self.fp):
-                fileio.write_json(self.fp, {})
-            fileio.read_json(self.fp)
-        except CacheIOError as e:
-            raise CacheInitError("Error while initializing cache: {}"
-                                 .format(str(e.description)))
+        if not os.path.exists(self.fp):
+            fileio.write_json(self.fp, {})
+        fileio.read_json(self.fp)
 
     def get(self, *args):
         if len(args) == 0:
