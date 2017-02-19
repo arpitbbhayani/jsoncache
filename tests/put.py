@@ -1,7 +1,7 @@
 import unittest
 
 from .testbase import TestBase
-from jsoncache.errors import ArgumentError
+from jsoncache.errors import ArgumentError, CacheUpdateError
 
 
 class PutTests(TestBase):
@@ -11,6 +11,22 @@ class PutTests(TestBase):
     def test_put_successfull_missing_key(self):
         with self.assertRaises(ArgumentError):
             self.json_cache.put()
+
+    def test_put_unsuccessfull_invalid_key_type(self):
+        with self.assertRaises(CacheUpdateError):
+            self.json_cache.put(1, 'v')
+
+        with self.assertRaises(CacheUpdateError):
+            self.json_cache.put(1.1, 'v')
+
+        with self.assertRaises(CacheUpdateError):
+            self.json_cache.put([1], 'v')
+
+        with self.assertRaises(CacheUpdateError):
+            self.json_cache.put(set([1.2]), 'v')
+
+        with self.assertRaises(CacheUpdateError):
+            self.json_cache.put({'1': '1'}, 'v')
 
     def test_put_successfull_missing_value(self):
         with self.assertRaises(ArgumentError):

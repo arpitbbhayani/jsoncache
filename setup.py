@@ -2,7 +2,7 @@ from setuptools import find_packages, setup
 
 
 setup(
-    name = 'json-cache',
+    name = 'jsoncache',
     packages = find_packages(),
     version = '0.0.1',
     description = 'File based JSON cache',

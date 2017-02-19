@@ -2,7 +2,8 @@ import os
 
 from . import fileio
 from . import utils
-from .errors import CacheError, CacheInitError, ArgumentError, CacheIOError
+from .errors import (CacheError, CacheInitError, ArgumentError, CacheIOError,
+                    NotInCacheError)
 
 
 class JSONCache:
@@ -28,7 +29,7 @@ class JSONCache:
         data = fileio.read_json(self.fp)
         try:
             for k in args:
-                data = data.get(k)
+                data = data[k]
         except KeyError as e:
             raise NotInCacheError("Path {} does not exist in cache"
                                   .format(args))
@@ -44,3 +45,20 @@ class JSONCache:
         data = fileio.read_json(self.fp)
         utils.update_dict(data, args)
         fileio.write_json(self.fp, data)
+
+    def delete(self, *args):
+        if len(args) == 0:
+            raise ArgumentError("Atleast one key should be given.")
+
+        cache_data = data = fileio.read_json(self.fp)
+        try:
+            for k in args[:-1]:
+                data = data[k]
+            if type(data) is not dict:
+                raise NotInCacheError("Path {} does not exist in cache"
+                                      .format(args))
+            del data[args[-1]]
+        except KeyError as e:
+            raise NotInCacheError("Path {} does not exist in cache"
+                                  .format(args))
+        fileio.write_json(self.fp, cache_data)
