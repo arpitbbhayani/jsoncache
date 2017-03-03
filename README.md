@@ -44,6 +44,42 @@ If something is not cache and you are trying to fetch it,
 More info about `get`, `put`, `delete` and `errors` can be found in
 documentation [here](../../wiki).
 
+## Advantages
+Now you may say, what's new with this; I can simply use `import json`.
+
+But hold on, there is one advantage using this library and that is syntactic sugar and convinience.
+Suppose you have to fetch firstname from json below
+
+```json
+{
+    "home_user": {
+        "name": {
+            "firstname": "Arpit"
+        }
+    }
+}
+```
+If you use `json` module, your code wil look something like this
+```python
+name = j.get('home_user').get('name').get('firstname')
+```
+
+With this piece of code, you have to check if key exists and if not handle exceptions
+and/or None values.
+
+With this library you can do just this
+```python
+j.get('home_user', 'name', 'firstname')
+```
+Above code will raise an exception if any of the key does not exist.
+
+Similarly while putting data into JSON. You have to explicitly take care that all intermediatory
+keys exist. But with this you can do simply this
+
+```python
+j.put('home_user', 'name', 'firstname', 'Arpit')
+```
+
 ## Documentation
 A compehensive documentation can be found [here](../../wiki).
 Lot of efforts have been put into this, hope you find it useful :smile:
