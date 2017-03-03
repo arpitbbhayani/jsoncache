@@ -7,8 +7,10 @@ from .errors import (CacheError, ArgumentError, CacheIOError,
 
 
 class JSONCache:
-    def __init__(self, cache_filepath):
-        self.fp = cache_filepath
+    def __init__(self, filepath='cache.json', autosave=False):
+        self.data = {}
+        self.autosave = autosave
+        self.fp = filepath
 
         if os.path.isdir(self.fp):
             raise CacheIOError("Error while initializing cache: {}"
@@ -16,13 +18,13 @@ class JSONCache:
 
         if not os.path.exists(self.fp):
             fileio.write_json(self.fp, {})
-        fileio.read_json(self.fp)
+        self.data = fileio.read_json(self.fp)
 
     def get(self, *args):
         if len(args) == 0:
             raise ArgumentError("Atleast one key should be given.")
 
-        data = fileio.read_json(self.fp)
+        data = self.data
         try:
             for k in args:
                 data = data[k]
@@ -38,15 +40,18 @@ class JSONCache:
         if len(args) == 1:
             raise ArgumentError("Value to be stored not given")
 
-        data = fileio.read_json(self.fp)
+        data = self.data
         utils.update_dict(data, args)
-        fileio.write_json(self.fp, data)
+
+        self.data = data
+        if self.autosave:
+            fileio.write_json(self.fp, self.data)
 
     def delete(self, *args):
         if len(args) == 0:
             raise ArgumentError("Atleast one key should be given.")
 
-        cache_data = data = fileio.read_json(self.fp)
+        cache_data = data = self.data
         try:
             for k in args[:-1]:
                 data = data[k]
@@ -57,4 +62,9 @@ class JSONCache:
         except KeyError as e:
             raise NotInCacheError("Path {} does not exist in cache"
                                   .format(args))
-        fileio.write_json(self.fp, cache_data)
+        self.data = cache_data
+        if self.autosave:
+            fileio.write_json(self.fp, self.data)
+
+    def save(self):
+        fileio.write_json(self.fp, self.data)

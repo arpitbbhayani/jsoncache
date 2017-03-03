@@ -23,25 +23,28 @@ pip install jsoncache
 
 ```python
 >>> from jsoncache import JSONCache
->>> j = JSONCache('cache.json')
+>>> j = JSONCache()
 >>> j.put('name', 'firstname', 'Arpit')
 >>> j.get('name', 'firstname')
 'Arpit'
+>>> j.save()  # writes to the cache file
 ```
 
-To initialize a JSONCache you should pass filepath as the argument. This will
-return you an instance of `JSONCache`. This file is where all your cache
-content will be stored.
+To initialize a JSONCache all you have to do is create its object. The default
+cache file is `cache.json` and autosave feature is `off`. So all of your JSON
+content will be saved in memory in a dictionary. For more information about the
+options of JSONCache, go through the documentation.
 
-`.put(*args)` and `.get(*args)` are two methods exposed in JSONCache object
-which are used to put something into cache and get something from the cache.
+`.put(*args)`, `.get(*args)` and `save()` are three methods exposed in
+JSONCache object which are used to put something into cache, get something
+from the cache and save the contents on the disk in a JSON file.
 The last argument passed in `put` method should be the value (object) to be
 stored in cache and this object should be JSON serializable.
 
 If something is not cache and you are trying to fetch it,
 `NotInCacheError` error is raised.
 
-More info about `get`, `put`, `delete` and `errors` can be found in
+More info about `get`, `put`, `delete`, `save` and `errors` can be found in
 documentation [here](../../wiki).
 
 ## Advantages

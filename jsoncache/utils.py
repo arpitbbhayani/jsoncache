@@ -8,7 +8,7 @@ def update_dict(source, changes):
     except:
         whitelisted_types_keys = [str]
 
-    blacklisted_types_values = [set]
+    blacklisted_types_values = [set, tuple]
 
     if len(changes) < 2:
         raise CacheUpdateError("Changes {} to be applied are invalid. "

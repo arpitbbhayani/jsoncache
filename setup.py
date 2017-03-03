@@ -4,8 +4,8 @@ from setuptools import find_packages, setup
 setup(
     name='jsoncache',
     packages=find_packages(),
-    version='0.0.2',
-    description='File based JSON cache',
+    version='0.0.3',
+    description='Easy way to manipulate JSON file for Python',
     author='Arpit Bhayani',
     author_email='arpit.b.bhayani@gmail.com',
     url='https://github.com/arpitbbhayani/json-cache',

@@ -12,6 +12,13 @@ class PutTests(TestBase):
         with self.assertRaises(ArgumentError):
             self.json_cache.put()
 
+    def test_put_unsuccessfull_invalid_value_type(self):
+        with self.assertRaises(CacheUpdateError):
+            self.json_cache.put('key', set([1, 2]))
+
+        with self.assertRaises(CacheUpdateError):
+            self.json_cache.put('key', (1, 2,))
+
     def test_put_unsuccessfull_invalid_key_type(self):
         with self.assertRaises(CacheUpdateError):
             self.json_cache.put(1, 'v')

@@ -36,10 +36,6 @@ class GetTests(TestBase):
         self.json_cache.put('key1', 'key2', {'a': 1})
         self.assertEqual(self.json_cache.get('key1', 'key2'), {'a': 1})
 
-    def test_get_successfull_level2_tuple(self):
-        self.json_cache.put('key1', 'key2', ('a', 1,))
-        self.assertEqual(self.json_cache.get('key1', 'key2'), ['a', 1])
-
     def test_get_successfull_level2_non_added_key(self):
         self.json_cache.put('key1', 'key2', {'a': 1})
         self.assertEqual(self.json_cache.get('key1', 'key2', 'a'), 1)

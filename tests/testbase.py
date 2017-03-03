@@ -15,7 +15,7 @@ class TestBase(unittest.TestCase):
     def setUp(self):
         if not os.path.exists(self.TEST_DIR):
             os.makedirs(self.TEST_DIR)
-        self.json_cache = JSONCache(os.path.join('/tmp/json-cache-tests', self.CACHE_NAME))
+        self.json_cache = JSONCache(filepath=os.path.join('/tmp/json-cache-tests', self.CACHE_NAME))
 
     def tearDown(self):
         shutil.rmtree(self.TEST_DIR)
